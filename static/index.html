@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KLARA OS — How Can We Help You Today?</title>
+    <meta name="description"
+        content="KLARA OS: Tell us your symptoms and we'll help you find the right care in Nova Scotia.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/user.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <div class="app-shell">
+
+        <!-- ─── Header ─── -->
+        <header id="user-header">
+            <div class="logo-row">
+                <div class="logo-mark">
+                    <svg viewBox="0 0 36 36" fill="none">
+                        <rect rx="8" width="36" height="36" fill="url(#lg)" />
+                        <path d="M11 18h14M18 11v14" stroke="#fff" stroke-width="2.5" stroke-linecap="round" />
+                        <defs>
+                            <linearGradient id="lg" x1="0" y1="0" x2="36" y2="36">
+                                <stop stop-color="#00d4aa" />
+                                <stop offset="1" stop-color="#0ea5e9" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-word">KLARA<span class="logo-accent">OS</span></span>
+            </div>
+        </header>
+
+        <!-- ─── Main card ─── -->
+        <main id="user-main">
+
+            <!-- Welcome state -->
+            <div id="welcome-view">
+                <h2 class="welcome-heading">How can we help you today?</h2>
+                <p class="welcome-sub">Tell us what you're experiencing and we'll find the right care for you in Nova
+                    Scotia.</p>
+
+                <form id="user-form" autocomplete="off">
+                    <div class="input-wrap">
+                        <textarea id="user-input" rows="4"
+                            placeholder="For example: &quot;I've had a headache and fever for two days&quot;"></textarea>
+                    </div>
+
+                    <div class="region-indicator" id="region-indicator">
+                        <span class="region-icon">📍</span>
+                        <span class="region-text" id="region-text">Detecting your location…</span>
+                    </div>
+                    <!-- Hidden region value -->
+                    <input type="hidden" id="region-value" value="Halifax">
+
+                    <button type="submit" id="user-submit" class="btn-go" disabled>
+                        <span class="btn-go-label">Find My Care Options</span>
+                        <span class="btn-go-loader" hidden>
+                            <span class="spinner"></span> Checking…
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results state (hidden initially) -->
+            <div id="results-view" hidden>
+
+                <button type="button" id="back-btn" class="btn-back">← Start Over</button>
+
+                <div class="result-hero" id="result-hero">
+                    <div class="result-emoji" id="result-emoji">🏥</div>
+                    <h2 class="result-heading" id="result-heading">We recommend…</h2>
+                    <p class="result-pathway" id="result-pathway"></p>
+                </div>
+
+                <div class="result-reason" id="result-reason"></div>
+
+                <div class="result-options" id="result-options">
+                    <h3>Your Options</h3>
+                    <ul id="options-list"></ul>
+                </div>
+
+                <!-- Emergency banner (hidden unless needed) -->
+                <div class="emergency-banner" id="emergency-banner" hidden>
+                    <span class="emergency-icon">🚨</span>
+                    <span id="emergency-text"></span>
+                </div>
+
+                <div class="result-summary" id="result-summary">
+                    <h3>What We Found</h3>
+                    <div id="summary-body"></div>
+                </div>
+
+                <p class="disclaimer">This is a navigation aid, not a medical diagnosis. If you feel your condition is
+                    life-threatening, please call <strong>911</strong> immediately.</p>
+            </div>
+
+        </main>
+
+        <!-- ─── Footer ─── -->
+        <footer id="user-footer">
+            <a href="/admin" class="admin-link">Clinician / Admin View →</a>
+            <p>KLARA OS v1.1 — Nova Scotia Healthcare Navigation</p>
+        </footer>
+    </div>
+
+    <script src="/static/user.js"></script>
+</body>
+
+</html>

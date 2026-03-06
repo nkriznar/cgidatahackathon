@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0f172a; /* Sleek dark mode background matching admin */
+    color: #e2e8f0;            /* Text color matching admin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Subtle background glow effect for premium feel */
+.bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.app-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 600px;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: #1e293b;       /* Surface matching admin panel */
+    border: 1px solid #334155; /* Subtle border matching admin */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+    border-radius: 16px;       /* Softer rounded corners */
+    backdrop-filter: blur(10px);
+}
+
+.logo-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.logo-mark svg {
+    width: 36px;
+    height: 36px;
+}
+
+.logo-word {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: 0.5px;
+}
+
+.logo-accent {
+    color: #0ea5e9;
+}
+
+.welcome-heading {
+    margin-top: 0;
+    font-size: 1.75rem;
+    color: #0ea5e9;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.welcome-sub {
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
+
+.input-wrap textarea {
+    width: 100%;
+    background: #0f172a;        /* Input background matches body */
+    border: 1px solid #334155;
+    color: #f8fafc;
+    border-radius: 12px;
+    padding: 1.25rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.input-wrap textarea:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+.input-wrap textarea::placeholder {
+    color: #475569;
+}
+
+.btn-go {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.2);
+}
+
+.btn-go:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.3);
+}
+
+.btn-go:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-go:disabled {
+    background: #475569;
+    color: #94a3b8;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.region-indicator {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.btn-back:hover {
+    color: #e2e8f0;
+}
+
+.result-hero {
+    background: #0f172a;
+    border: 1px solid #334155;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.result-emoji { 
+    font-size: 3.5rem; 
+    margin-bottom: 1rem;
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.result-heading { 
+    color: #94a3b8; 
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0 0 0.5rem 0;
+}
+
+.result-pathway { 
+    font-size: 1.75rem; 
+    font-weight: 700; 
+    color: #0ea5e9;
+    margin: 0;
+}
+
+.result-reason {
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.result-options {
+    margin-bottom: 2rem;
+}
+
+.result-options h3 {
+    font-size: 1.1rem;
+    color: #f8fafc;
+    margin-bottom: 1rem;
+}
+
+.result-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.result-options li {
+    background: #0f172a;
+    border: 1px solid #334155;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.result-options li::before {
+    content: '→';
+    color: #0ea5e9;
+    font-weight: bold;
+    margin-right: 0.75rem;
+}
+
+.result-summary {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.result-summary h3 {
+    font-size: 1rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 1rem 0;
+}
+
+.result-summary p {
+    margin: 0.5rem 0;
+    color: #e2e8f0;
+}
+
+.result-summary strong {
+    color: #94a3b8;
+    margin-right: 0.25rem;
+}
+
+.emergency-banner {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    padding: 1.25rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.emergency-icon {
+    font-size: 1.5rem;
+}
+
+.disclaimer {
+    font-size: 0.85rem;
+    color: #64748b;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 2rem;
+    margin-bottom: 0;
+}
+
+.admin-link {
+    display: inline-block;
+    margin-top: 2.5rem;
+    text-align: center;
+    color: #0ea5e9;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    width: 100%;
+}
+
+.admin-link:hover {
+    color: #38bdf8;
+    text-decoration: underline;
+}
+
+#user-footer p {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #475569;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Spinner Animation */
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

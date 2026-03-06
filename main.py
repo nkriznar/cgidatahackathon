@@ -15,7 +15,10 @@ Layer 1 (Clinician Intake Summary View) and Layer 3 (EMR integration).
 """
 
 import uuid
+from pathlib import Path
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from klara_data.schemas import (
     AssessRequest,
     AssessResponse,
@@ -34,7 +37,24 @@ from klara_core.provincial_context import load_provincial_context
 from klara_core.routing_engine import route_care
 from klara_core.summary_builder import build_summary
 
+STATIC_DIR = Path(__file__).parent / "static"
+
 app = FastAPI(title="KLARA OS Core Engine")
+
+# ── Serve static assets (CSS, JS) ──
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
+
+@app.get("/")
+def root():
+    """Serve the patient-facing user view."""
+    return FileResponse(str(STATIC_DIR / "index.html"))
+
+
+@app.get("/admin")
+def admin():
+    """Serve the clinician / admin dashboard."""
+    return FileResponse(str(STATIC_DIR / "admin.html"))
 
 @app.post("/assess", response_model=AssessResponse)
 def assess_patient(request: AssessRequest):
