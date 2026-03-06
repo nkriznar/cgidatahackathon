@@ -20,10 +20,11 @@
         const text = input.value.trim();
         if (!text) return;
 
-        // Loading
+        // Loading and resetting state
         submitBtn.disabled = true;
         document.querySelector('.btn-go-label').hidden = true;
         document.querySelector('.btn-go-loader').hidden = false;
+        document.getElementById('emergency-banner').hidden = true;
 
         try {
             const res = await fetch('/assess', {
@@ -54,9 +55,22 @@
                 document.getElementById('emergency-text').innerText = 'Please seek immediate medical attention.';
             }
 
-            // Swap views
-            welcomeView.hidden = true;
-            resultsView.hidden = false;
+            // Swap views smoothly with staggered animations
+            welcomeView.classList.add('view-fade-out');
+            
+            setTimeout(() => {
+                welcomeView.classList.add('view-hidden');
+                welcomeView.classList.remove('view-fade-out');
+                
+                // Reset animation classes on results so they play again
+                resultsView.querySelectorAll('.animate-up').forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; // Trigger reflow
+                    el.style.animation = null;
+                });
+
+                resultsView.classList.remove('view-hidden');
+            }, 400); // 400ms matches CSS fadeOut duration
             
         } catch (e) {
             alert('Error processing request.');
@@ -69,9 +83,22 @@
     });
 
     backBtn.addEventListener('click', () => {
-        resultsView.hidden = true;
-        welcomeView.hidden = false;
-        input.value = '';
-        submitBtn.disabled = true;
+        resultsView.classList.add('view-fade-out');
+
+        setTimeout(() => {
+            resultsView.classList.add('view-hidden');
+            resultsView.classList.remove('view-fade-out');
+
+            // Reset welcome animations
+            welcomeView.querySelectorAll('.animate-up').forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight;
+                el.style.animation = null;
+            });
+
+            welcomeView.classList.remove('view-hidden');
+            input.value = '';
+            submitBtn.disabled = true;
+        }, 400);
     });
 })();

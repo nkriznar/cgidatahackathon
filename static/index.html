@@ -22,7 +22,7 @@
     <div class="app-shell">
 
         <!-- ─── Header ─── -->
-        <header id="user-header">
+        <header id="user-header" class="animate-up delay-0">
             <div class="logo-row">
                 <div class="logo-mark">
                     <svg viewBox="0 0 36 36" fill="none">
@@ -44,25 +44,25 @@
         <main id="user-main">
 
             <!-- Welcome state -->
-            <div id="welcome-view">
-                <h2 class="welcome-heading">How can we help you today?</h2>
-                <p class="welcome-sub">Tell us what you're experiencing and we'll find the right care for you in Nova
+            <div id="welcome-view" class="view-container">
+                <h2 class="welcome-heading animate-up delay-1">How can we help you today?</h2>
+                <p class="welcome-sub animate-up delay-2">Tell us what you're experiencing and we'll find the right care for you in Nova
                     Scotia.</p>
 
                 <form id="user-form" autocomplete="off">
-                    <div class="input-wrap">
+                    <div class="input-wrap animate-up delay-3">
                         <textarea id="user-input" rows="4"
                             placeholder="For example: &quot;I've had a headache and fever for two days&quot;"></textarea>
                     </div>
 
-                    <div class="region-indicator" id="region-indicator">
+                    <div class="region-indicator animate-up delay-4" id="region-indicator">
                         <span class="region-icon">📍</span>
                         <span class="region-text" id="region-text">Detecting your location…</span>
                     </div>
                     <!-- Hidden region value -->
                     <input type="hidden" id="region-value" value="Halifax">
 
-                    <button type="submit" id="user-submit" class="btn-go" disabled>
+                    <button type="submit" id="user-submit" class="btn-go animate-up delay-5" disabled>
                         <span class="btn-go-label">Find My Care Options</span>
                         <span class="btn-go-loader" hidden>
                             <span class="spinner"></span> Checking…
@@ -72,35 +72,35 @@
             </div>
 
             <!-- Results state (hidden initially) -->
-            <div id="results-view" hidden>
+            <div id="results-view" class="view-container view-hidden">
 
-                <button type="button" id="back-btn" class="btn-back">← Start Over</button>
+                <button type="button" id="back-btn" class="btn-back animate-up delay-0">← Start Over</button>
 
-                <div class="result-hero" id="result-hero">
+                <div class="result-hero animate-up delay-1" id="result-hero">
                     <div class="result-emoji" id="result-emoji">🏥</div>
                     <h2 class="result-heading" id="result-heading">We recommend…</h2>
                     <p class="result-pathway" id="result-pathway"></p>
                 </div>
 
-                <div class="result-reason" id="result-reason"></div>
+                <div class="result-reason animate-up delay-2" id="result-reason"></div>
 
-                <div class="result-options" id="result-options">
+                <div class="result-options animate-up delay-3" id="result-options">
                     <h3>Your Options</h3>
                     <ul id="options-list"></ul>
                 </div>
 
                 <!-- Emergency banner (hidden unless needed) -->
-                <div class="emergency-banner" id="emergency-banner" hidden>
+                <div class="emergency-banner animate-up delay-4" id="emergency-banner" hidden>
                     <span class="emergency-icon">🚨</span>
                     <span id="emergency-text"></span>
                 </div>
 
-                <div class="result-summary" id="result-summary">
+                <div class="result-summary animate-up delay-4" id="result-summary">
                     <h3>What We Found</h3>
                     <div id="summary-body"></div>
                 </div>
 
-                <p class="disclaimer">This is a navigation aid, not a medical diagnosis. If you feel your condition is
+                <p class="disclaimer animate-up delay-5">This is a navigation aid, not a medical diagnosis. If you feel your condition is
                     life-threatening, please call <strong>911</strong> immediately.</p>
             </div>
 
