@@ -55,12 +55,16 @@
                             placeholder="For example: &quot;I've had a headache and fever for two days&quot;"></textarea>
                     </div>
 
-                    <div class="region-indicator animate-up delay-4" id="region-indicator">
-                        <span class="region-icon">📍</span>
-                        <span class="region-text" id="region-text">Detecting your location…</span>
+                    <div class="input-wrap animate-up delay-4">
+                        <select id="region-value" required>
+                            <option value="Halifax">📍 Halifax</option>
+                            <option value="Cape Breton">📍 Cape Breton</option>
+                            <option value="South Shore">📍 South Shore</option>
+                            <option value="Annapolis Valley">📍 Annapolis Valley</option>
+                            <option value="Truro / Colchester">📍 Truro / Colchester</option>
+                            <option value="Northern (Rural)">📍 Northern (Rural)</option>
+                        </select>
                     </div>
-                    <!-- Hidden region value -->
-                    <input type="hidden" id="region-value" value="Halifax">
 
                     <button type="submit" id="user-submit" class="btn-go animate-up delay-5" disabled>
                         <span class="btn-go-label">Find My Care Options</span>
