@@ -18,35 +18,40 @@ def route_care(risk_level: str, region: str) -> dict:
     Note: Emergency cases are not routed by this model — they are handled
     by the Escalation Override Protocol (EMERGENCY node in the pipeline).
     """
-    if risk_level == "high":
-        primary_pathway = "emergency"
-        reason = "High risk symptoms require immediate in-person assessment."
-        options = ["Call 911", f"Go to nearest ED in {region}"]
-    elif risk_level == "moderate":
-        primary_pathway = "urgent"
-        reason = "Symptoms warrant medical assessment but are not immediately life-threatening."
-        options = [
-            f"UTC in {region}",
-            "VirtualCareNS",
-            f"Mental Health Access Point in {region}",   # Layer 4 node
-            f"Community Health Centre in {region}",       # Layer 4 node
-        ]
-    elif risk_level == "mental_health":
-        primary_pathway = "mental_health"
-        reason = "Symptoms suggest a mental-health pathway is the best fit."
-        options = [
-            f"Mental Health Access Point in {region}",
-            "VirtualCareNS (mental-health stream)",
-            f"Community Health Centre in {region}",
-        ]
-    else:  # low
-        primary_pathway = "pharmacy"
-        reason = "Low risk symptoms can typically be managed via pharmacy consultation or self-care."
-        options = [
-            f"Local Pharmacy in {region}",
-            "811 Healthline",
-            f"Community Health Centre in {region}",  # Layer 4 node
-        ]
+    # Step 8.1 - Formulation: Use PuLP Optimization Model to route the patient
+    from klara_core.optimization import optimize_pathways
+    
+    # Create a dummy "batch" of 1 representing the current session
+    patients = [{"id": "current_patient", "risk": risk_level, "pref": "VirtualCareNS"}]
+    
+    # Layer 3 capacity overrides from API (simulated for prototype)
+    # In production, this receives real-time occupancy. We set constraints loosely here for the demo.
+    capacities = {"ED": 100, "UTC": 50, "VirtualCareNS": 200, "Pharmacy": 50, "Primary Care": 30, "Self-Care": 1000, "811": 500}
+    
+    opt_result = optimize_pathways(patients, capacities)
+    assigned_pathway = opt_result["assignments"].get("current_patient", "811")
+    solve_time = opt_result.get("solve_time_ms", 0.0)
+    
+    # Map the PuLP assignment back to the UI descriptions
+    reason_map = {
+        "ED": "Assigned via LP Model (Strain Minimization): High medical acuity requires immediate ED capacity.",
+        "UTC": "Assigned via LP Model (Strain Minimization): Symptoms warrant assessment but divert from ED.",
+        "VirtualCareNS": "Assigned via LP Model (Strain Minimization): High expected wait elsewhere; Virtual Care has capacity.",
+        "Pharmacy": "Assigned via LP Model (Strain Minimization): Lowest system strain for this presentation.",
+        "Primary Care": "Assigned via LP Model (Strain Minimization): Appropriate matched continuity of care.",
+        "Self-Care": "Assigned via LP Model (Strain Minimization): Trivial severity, deflects system strain.",
+        "811": "Assigned via LP Model (Strain Minimization): Tele-triage is the most efficient next step."
+    }
+
+    primary_pathway = assigned_pathway
+    reason = f"{reason_map.get(assigned_pathway, 'Optimal pathway assigned.')} (Solved in {solve_time:.1f}ms)"
+    
+    # Provide fallback options for the dashboard
+    options = [
+        f"{assigned_pathway} in {region}",
+        "811 Healthline",
+        f"Community Health Centre in {region}"
+    ]
 
     return {
         "primary_pathway": primary_pathway,
