@@ -53,21 +53,23 @@
 
 ## Summary of Recommended Spec Updates
 
-1. **Spec 01:**  
-   - Map node names to pipeline stages (INTAKE = Patient Input + Symptom Parsing, etc.).  
-   - Either add a PROVINCIAL_CONTEXT node or state that Provincial Context Analysis = ELIGIBILITY + RAG_RETRIEVE + Layer 3 data.  
-   - State that RESPONSE_GEN output is the official "Structured Intake Output" for Layer 1 and Layer 3.
+1. **Spec 01 (main.py):** ✅ Applied  
+   - ✅ Mapped node names to pipeline stages (INTAKE = Patient Input + Symptom Parsing, etc.) via module docstring and inline comments.  
+   - ✅ Added a dedicated `PROVINCIAL_CONTEXT` step (`load_provincial_context()` in `klara_core/provincial_context.py`) and documented that Provincial Context Analysis = ELIGIBILITY + RAG_RETRIEVE + Layer 3 data.  
+   - ✅ Documented that RESPONSE_GEN output is the official "Structured Intake Output" for Layer 1 (Clinician Intake Summary View) and Layer 3 (EMR integration).
 
-2. **Spec 02:**  
-   - Add optional `opor_context` / `external_record_summary` for Layer 3 (OPOR) feedback.  
-   - Extend or document pathway set: add mental_health and community_health if the architecture requires them as first-class pathways; otherwise state how they map (e.g. to primarycare).
+2. **Spec 02 (schemas.py):** ✅ Applied  
+   - ✅ Added `OporContext` model with fields for prior ED visits, active conditions, medications, allergies, and last visit summary. Wired into `AssessRequest` and `AssessResponse`.  
+   - ✅ Added `ProvincialContext` model (capacity snapshot, available pathways, policy flags) to `AssessResponse`.  
+   - ✅ Extended pathway set to include `mental_health` and `community_health` as first-class pathway IDs, documented in `RoutingRecommendation`.
 
-3. **Spec 03:**  
-   - State explicitly that \( t_p \), \( c_p \) (and capacity limits) are sourced from the Healthcare System Integration Layer (e.g. NS Health Capacity API).
+3. **Spec 03 (routing_engine.py):** ✅ Applied  
+   - ✅ Stated explicitly in the docstring that capacity parameters are sourced from the Healthcare System Integration Layer (Layer 3): NS Health Capacity API, VirtualCareNS availability, and regional EMR systems.  
+   - ✅ Added `mental_health` as a routable pathway and included Community Health Centre options in moderate/low risk routes.
 
 ---
 
 ## Status
 
-- **Version:** 1.0  
-- **Next:** Apply the above edits to specs 01–03 if you adopt these contingencies; if you have the .docx (v2) content, we can cross-check again for any extra requirements.
+- **Version:** 1.1 — All recommended updates applied.  
+- **Next:** If the `.docx` (v2) architecture document becomes available, re-run the cross-check for any additional requirements.
